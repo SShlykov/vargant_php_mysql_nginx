@@ -15,7 +15,7 @@ So you might need to:
 - clone this repo
 
 ```sh
-git clone
+git clone https://github.com/SShlykov/vargant_php_mysql_nginx.git ./project
 ```
 
 - use "exmple.default" or create your own configuration for nginx server and move it to ./src/default
