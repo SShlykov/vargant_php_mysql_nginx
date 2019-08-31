@@ -49,5 +49,7 @@ Vagrant up
 ```
 
 After installation process
+
 > You should just open http://localhost:3000/ 
+
 > ./src is your working folder
