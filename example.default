@@ -1,0 +1,41 @@
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    charset utf-8;
+
+    root /project;
+
+    index index.php index.html index.htm  index.hh;
+   
+    server_name portfolio.dev;
+
+    location ~* \.(jpg|jpeg|gif|css|png|js|ico|html|svg|ttf|woff)$ {
+        access_log off;
+        expires max;
+    }
+    
+    location / {
+    try_files $uri/ /index.php?$query_string;
+    }
+
+    location ~ \.php$ {
+    try_files $uri /index.php =404;
+    fastcgi_split_path_info ^(.+\.php)(/.+)$;
+    fastcgi_pass unix:/run/php/php7.3-fpm.sock;
+    fastcgi_index index.php;
+    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    include fastcgi_params;
+    }
+
+    location = /favicon.ico { log_not_found off; access_log off; }
+    location = /robots.txt  { log_not_found off; access_log off; }
+
+    access_log /var/log/nginx/access.log;
+    error_log  /var/log/nginx/error.log error;
+    error_page 404 /index.php;
+
+    # Deny .htaccess file access
+    location ~ /\.ht {
+        deny all;
+    }
+}
